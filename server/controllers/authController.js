@@ -21,7 +21,7 @@ const register = async (req, res) => {
 
   // send verification token back only while testing on postman 
 
-  send.status(StatusCodes.CREATED).json({msg:'Success! Please check your email to verify account', verificationToken:user.verificationToken})
+  res.status(StatusCodes.CREATED).json({msg:'Success! Please check your email to verify account', verificationToken:user.verificationToken})
 
 };
 const login = async (req, res) => {
