@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const { attachCookiesToResponse, createTokenUser } = require('../utils');
 const crypto = require('crypto');
+const { now } = require('mongoose');
 
 const register = async (req, res) => {
   const { email, name, password } = req.body;
@@ -56,8 +57,30 @@ const logout = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
 };
 
+const verifyEmail = async (req, res) =>{
+  const {verificationToken, email} = req.body;
+
+  const user = await User.findOne({email});
+  if(!user){
+    throw new CustomError.UnauthenticatedError('Verification failed!');
+  }
+
+  if( user.verificationToken !== verificationToken){
+    throw new CustomError.UnauthenticatedError('Verification Failed!');
+  }
+
+  user.isVerified = true;
+  user.verified = Date.now();
+  use.verificationToken = '';
+
+  await user.save();
+  
+  res.status(StatusCodes.OK).json({verificationToken, email});
+}
+
 module.exports = {
   register,
   login,
   logout,
+  verifyEmail,
 };
