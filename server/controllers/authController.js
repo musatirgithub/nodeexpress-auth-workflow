@@ -2,6 +2,7 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const { attachCookiesToResponse, createTokenUser } = require('../utils');
+const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 const { now } = require('mongoose');
 
@@ -23,7 +24,9 @@ const register = async (req, res) => {
 
   // send verification token back only while testing on postman 
 
-  res.status(StatusCodes.CREATED).json({msg:'Success! Please check your email to verify account', verificationToken:user.verificationToken})
+  await sendEmail();
+
+  res.status(StatusCodes.CREATED).json({msg:'Success! Please check your email to verify account'})
 
 };
 const login = async (req, res) => {
