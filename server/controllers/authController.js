@@ -74,8 +74,8 @@ const verifyEmail = async (req, res) =>{
   use.verificationToken = '';
 
   await user.save();
-  
-  res.status(StatusCodes.OK).json({verificationToken, email});
+
+  res.status(StatusCodes.OK).json({msg:'Email verified!'});
 }
 
 module.exports = {
