@@ -71,7 +71,7 @@ const verifyEmail = async (req, res) =>{
 
   user.isVerified = true;
   user.verified = Date.now();
-  use.verificationToken = '';
+  user.verificationToken = '';
 
   await user.save();
 
