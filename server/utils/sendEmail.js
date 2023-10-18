@@ -26,11 +26,11 @@ const sendEmail = async()=>{
     });
 
     let info = await transporter.sendMail({
-        from: '"Fred Foo" <foo@example.com>',
-        to: 'bar@example.com, baz@example.com',
-        subject: 'Hello',
+        from: '"Coding addict" <codingaddict@gmail.com>',
+        to: 'user@user.com',
+        subject: 'Testing Email',
         text: 'Hello World',
-        html: '<h2>Hello World.</h2>',
+        html: '<h2>Testing Email</h2>',
       });
 }
 
