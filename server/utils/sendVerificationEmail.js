@@ -10,3 +10,5 @@ const sendVerificationEmail = async ({name, email, verificationToken, origin})=>
     ${message}
     `})
 }
+
+module.exports = sendVerificationEmail;
