@@ -31,6 +31,7 @@ const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({msg:'Success! Please check your email to verify account'})
 
 };
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -50,13 +51,9 @@ const login = async (req, res) => {
     throw new CustomError.UnauthenticatedError('Please verify your email!');
   }
   const tokenUser = createTokenUser(user);
-
   // create refresh token
-
   let refreshToken = '';
-
   // check for existing token
-
   const existingToken = await Token.findOne({user:user._id})
 
   if(existingToken){
@@ -77,11 +74,11 @@ const login = async (req, res) => {
   const userToken = {refreshToken, userAgent, ip, user:user._id};
   await Token.create(userToken);
 
-
   attachCookiesToResponse({ res, user: tokenUser,  refreshToken});
 
   res.status(StatusCodes.OK).json({ user: tokenUser});
 };
+
 const logout = async (req, res) => {
 
   await Token.findOneAndDelete({user:req.user.userId})

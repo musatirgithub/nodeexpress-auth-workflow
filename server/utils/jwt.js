@@ -29,6 +29,13 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
     expires: new Date(Date.now() + longerExpiration),
   });
 };
+
+module.exports = {
+  createJWT,
+  isTokenValid,
+  attachCookiesToResponse,
+};
+
 // const attachSingleCookieToResponse = ({ res, user }) => {
 //   const token = createJWT({ payload: user });
 
@@ -41,9 +48,3 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
 //     signed: true,
 //   });
 // };
-
-module.exports = {
-  createJWT,
-  isTokenValid,
-  attachCookiesToResponse,
-};
